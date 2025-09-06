@@ -84,14 +84,15 @@ def read_teams(team1, team2):
     for i in range(len(team1)):
         fighter = team1[i]
         print(f"{fighter.name} - Health: {fighter.health}, Attack: {fighter.attack}")
-        print(fighter.armor)
+        for piece in fighter.armor :
+            print(piece.name,)
 
     print("\nTeam 2 Fighters:")
     for i in range(len(team2)):
         fighter = team2[i]
         print(f"{fighter.name} - Health: {fighter.health}, Attack: {fighter.attack}")
-        print(fighter.armor)
-
+        for piece in fighter.armor :
+            print(piece.name,)
 
 
 
