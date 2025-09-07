@@ -1,6 +1,6 @@
 
 import random as rd
-
+import json
 
 
 
@@ -10,6 +10,7 @@ import random as rd
 class armor_piece():
     def __init__(self, owner_name, type=None, type_bonus=None, material=None, material_bonus=None, body_part=None, enchantments=None):
         self.owner_name = owner_name
+        self.owner_history = [self.owner_name]
 
         if type is None:
             self.type = rd.choice(["Light", "Medium", "Heavy"])
@@ -182,6 +183,44 @@ class armor_piece():
             self.enchantment_cooldown += plate_bonus + rd.randint(3, 7)
             self.enchantment_cost     += plate_bonus + rd.randint(3, 7)
 
+    def save_armor(self):
+        armor_data = {
+            "owner_name": self.owner_name,
+            "owner_history": self.owner_history,
+            "type": self.type,
+            "material": self.material,
+            "body_part": self.body_part,
+            "enchantments": self.enchantments,
+            "name": self.name,
+            "defense": self.defense,
+            "weight": self.weight,
+            "durability": self.durability,
+            "stealth": self.stealth,
+            "speed": self.speed,
+            "magic_resistance": self.magic_resistance,
+            "fire_resistance": self.fire_resistance,
+            "ice_resistance": self.ice_resistance,
+            "poison_resistance": self.poison_resistance,
+            "electric_resistance": self.electric_resistance,
+            "enchantment_power": self.enchantment_power,
+            "enchantment_duration": self.enchantment_duration,
+            "enchantment_cooldown": self.enchantment_cooldown,
+            "enchantment_cost": self.enchantment_cost
+        }
+        with open("armor history.json", "a") as file:
+            json.dump(armor_data, file)
+            
+
+        
+
+            
+        
+
+
+
+
+
+
 
 
 class Fighter:
@@ -240,6 +279,8 @@ def random_fighter(team):
     armor.append(armor_piece(fighter_actual_name,body_part="leggings"))
     armor.append(armor_piece(fighter_actual_name,body_part="boots"))
     armor.append(armor_piece(fighter_actual_name,body_part="gauntlets"))
+    for piece in armor:
+        piece.save_armor()
 
 
     speed = rd.randint(1, 10)
